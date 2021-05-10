@@ -12,7 +12,8 @@ public class ClubMembers
     public void addMembers(String[] names, int gradYear)
     {
         // 1 minute
-        for(String name : names) {
+        for(String name : names)
+        {
             memberList.add(new MemberInfo(name, gradYear, true));
         }
     }

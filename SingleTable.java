@@ -5,7 +5,8 @@ public class SingleTable
     private int height;
     private double quality;
     
-    public SingleTable(int s, int h, double q) {
+    public SingleTable(int s, int h, double q)
+    {
         seats = s;
         height = h;
         quality = q;
@@ -33,7 +34,8 @@ public class SingleTable
         quality = value;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         SingleTable t1 = new SingleTable(4,74,60.0);
         SingleTable t2 = new SingleTable(8,74,70.0);
         SingleTable t3 = new SingleTable(12,76,75.0);
@@ -53,6 +55,5 @@ public class SingleTable
         t2.setViewQuality(80);
         System.out.println("c2.getDesirability() should be 67.5: " +
                            c2.getDesirability());
-        
     }
 }
