@@ -22,9 +22,11 @@ public class ArrayResizer
      *  all non-zero values. 
      * Postcondition: array2D is unchanged.
      */
-    public static int numNonZeroRows(int[][] array2D) {
+    public static int numNonZeroRows(int[][] array2D)
+    {
         int acc = 0;
-        for(int i = 0; i < array2D.length; i++) {
+        for(int i = 0; i < array2D.length; i++)
+        {
             if(isNonZeroRow(array2D,i))
                 acc++;
         }
@@ -38,21 +40,39 @@ public class ArrayResizer
      *  at least one row with no zeros. 
      *  Postcondition: array2D is unchanged.
      */
-    public static int[][] resize(int[][] array2D)
-    {
+    public static int[][] resize1(int[][] array2D)
+    {   
         // 6 minutes
         int rows = numNonZeroRows(array2D);
-        int[][] ret = new int[rows][array2D[0].length];
+        int[][] ret = new int[rows][];
         int index = 0;
         for(int r = 0; r < array2D.length; r++)
-            if(isNonZeroRow(array2D, r)) {
+            if(isNonZeroRow(array2D, r))
+            {
                 ret[index] = array2D[r];
                 index++;
             }
         return ret;
     }
 
-    public static void main(String[] args) {
+    /* version that deep copies instead of aliasing array2D's rows */
+    public static int[][] resize2(int[][] array2D)
+    {
+        int rows = numNonZeroRows(array2D);
+        int[][] ret = new int[rows][array2D[0].length];
+        int index = 0;
+        for(int r = 0; r < array2D.length; r++)
+            if(isNonZeroRow(array2D, r))
+            {
+                for(int c = 0; c < array2D[r].length; c++)
+                    ret[index][c] = array2D[r][c];
+                index++;
+            }
+        return ret;
+    }
+
+    public static void main(String[] args)
+    {
         int[][] arr = {{2,1,0},
                        {1,3,2},
                        {0,0,0},
@@ -66,7 +86,10 @@ public class ArrayResizer
         System.out.println("AR.iNZR(arr,3) should be true: "+
                            ArrayResizer.isNonZeroRow(arr, 3));
 
-        int[][] smaller = ArrayResizer.resize(arr);
+        int[][] smaller = ArrayResizer.resize1(arr);
+        System.out.println("smaller should be {{1,3,2}, {4,5,6}}: "+
+                           Arrays.deepToString(smaller));
+        smaller = ArrayResizer.resize2(arr);
         System.out.println("smaller should be {{1,3,2}, {4,5,6}}: "+
                            Arrays.deepToString(smaller));
     }
