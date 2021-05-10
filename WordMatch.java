@@ -17,17 +17,20 @@ public class WordMatch
      *  Precondition: 0 < guess.length() <= secret.length()
      */
     public int scoreGuess(String guess) {
-        // 12 minutes, and I'm still not convinced it's right.
-        int searchLoc = 0;
+        // 12 minutes for initial version,
+        // which I still wasn't convinced was right (though it was)
+        // 5ish minutes to convert+check do-while->while and restyle.
+
         int count = 0;
-        int index;
-        do {
-            index = secret.substring(searchLoc).indexOf(guess);
-            if(index != -1) {
-                searchLoc += index + 1;
+        int index = 0;
+        int next = 0;
+        while(next != -1) {
+            next = secret.substring(index).indexOf(guess);
+            if(next != -1) {
+                index += next + 1;
                 count++;
             }
-        } while(index != -1);
+        }
 
         return count * guess.length() * guess.length();
     }
@@ -46,8 +49,7 @@ public class WordMatch
         if(s2 > s1) return guess2;
         if(guess1.compareTo(guess2) < 0)
             return guess2;
-        else
-            return guess1;
+        return guess1;
     }
 
     public static void main(String[] args) {
@@ -70,6 +72,10 @@ public class WordMatch
                            game.scoreGuess("aaa"));
         System.out.println("aabb should be 16: " +
                            game.scoreGuess("aabb"));
+        System.out.println("b should be 2: " +
+                           game.scoreGuess("b"));
+        System.out.println("bb should be 4: " +
+                           game.scoreGuess("bb"));
         System.out.println("c should be 0: " +
                            game.scoreGuess("c"));
 
