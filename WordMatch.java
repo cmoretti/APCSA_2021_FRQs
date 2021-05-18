@@ -20,7 +20,7 @@ public class WordMatch
         // 12 minutes for initial version,
         // which I still wasn't convinced was right (though it was)
         // 5ish minutes to convert+check do-while->while and restyle.
-
+        /*
         int count = 0;
         int index = 0;
         int next = 0;
@@ -33,7 +33,23 @@ public class WordMatch
         }
 
         return count * guess.length() * guess.length();
+        */
+        
+        // 2 more minutes to streamline above version to below,
+        // which I think is far superior to what ended up as the
+        // probable canonical that loops through every index
+        // checking .equals on a guess-length substring.
+        String str = secret;
+        int count = 0;
+        int next;
+        while ( (next = str.indexOf(guess)) != -1) {
+            str = str.substring(next+1);
+            count++;
+        }
+        
+        return count*guess.length()*guess.length();
     }
+
 
     /** Returns the better of two guesses, as determined by scoreGuess 
      *  and the rules for a tie-breaker that are described in part (b).
